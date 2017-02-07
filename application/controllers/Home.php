@@ -167,7 +167,21 @@ class Home extends CI_Controller
             $this->upload->initialize($config);
             if ($this->upload->do_upload('userFile')) {
                 $fileData = $this->upload->data();
-                $uploadData['applicant_photo'] = $fileData['file_name'];
+                $data = array(
+                    'applicant_photo' => $fileData['file_name'],
+                    'applicant_name' => $this->input->post('applicant_name'),
+                    'applicant_father_name' => $this->input->post('applicant_father_name'),
+                    'applicant_date_of_birth' => $this->input->post('applicant_date_of_birth'),
+                    'applicant_NID' => $this->input->post('applicant_NID'),
+                    'applicant_mobile' => $this->input->post('applicant_mobile'),
+                    'applicant_village' => $this->input->post('applicant_village'),
+                    'applicant_post_office' => $this->input->post('applicant_post_office'),
+                    'applicant_subdistrict_id' => $this->input->post('applicant_subdistrict_id'),
+                    'applicant_district_id' => $this->input->post('applicant_district_id'),
+                    'applicant_course_id' => $this->input->post('applicant_course_id'),
+                    'application_date' => date("Y-m-d")
+                );
+                /*$uploadData['applicant_photo'] = $fileData['file_name'];
                 $uploadData['applicant_name'] = $this->input->post('applicant_name');
                 $uploadData['applicant_father_name'] = $this->input->post('applicant_father_name');
                 $uploadData['applicant_date_of_birth'] = $this->input->post('applicant_date_of_birth');
@@ -178,15 +192,15 @@ class Home extends CI_Controller
                 $uploadData['applicant_subdistrict_id'] = $this->input->post('applicant_subdistrict_id');
                 $uploadData['applicant_district_id'] = $this->input->post('applicant_district_id');
                 $uploadData['applicant_course_id'] = $this->input->post('applicant_subject_id');
-                $uploadData['application_date'] = date("Y-m-d");
+                $uploadData['application_date'] = date("Y-m-d");*/
             } else {
                 $file_errors = $this->upload->display_errors();
                 $this->session->set_flashdata('file_errors', strip_tags($file_errors));
             }
-            var_dump($uploadData);
+            var_dump($data);
             if ($do_create) {
-                if (!empty($uploadData)) {
-                    $is_created = $this->main_ui_model->add_application($uploadData);
+                if (!empty($data)) {
+                    $is_created = $this->main_ui_model->add_application($data);
                     if ($is_created) {
                         $applicant_name = $this->input->post('applicant_name');
                         $applicant_father_name = $this->input->post('applicant_father_name');
