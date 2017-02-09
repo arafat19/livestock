@@ -216,6 +216,22 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="applicant_gender">Select Sub District</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select id="applicant_gender" name="applicant_gender" class="form-control">
+                                                <option value="">Please Select Gender</option>
+                                                <option value="Male" <?php //if($applicant_gender_selected == 'Male') echo 'selected'; ?>>পুরুষ</option>
+                                                <option value="Female" <?php //if($applicant_gender_selected == 'Female') echo 'selected'; ?>>মহিলা</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="applicant_NID">NID</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input id="applicant_NID" name="applicant_NID" placeholder="National ID Number" value="<?php if ($applicant_NID != '') echo $applicant_NID; ?>" class="form-control col-md-6 col-xs-12" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="from_date">From Date</label>
                                         <div class="col-md-2 col-sm-3 col-xs-12">
                                             <input id="from_date" name="from_date" placeholder="Select From Date" value="<?php if ($from_date != '') echo $from_date; ?>" class="date-picker form-control col-md-6 col-xs-12" type="text">
@@ -231,8 +247,6 @@
                                             <a type="button" href="<?php echo base_url() ?>admin/show/applicants" class="btn btn-danger">Reset</a>
                                             <button type="submit" class="btn btn-success">Search</button>
                                             <button type="submit" class="btn btn-info" name="print_list" formtarget="_blank">Print List</button>
-                                            <button type="button" id="report_app_list" class="btn btn-info">Report for Applicant List</button>
-                                            <button type="button" id="report_app_details" class="btn btn-info">Report For Applicant Details</button>
                                         </div>
                                     </div>
                                 </form>
@@ -253,7 +267,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <?php if (isset($all_applicants) && $all_applicants->num_rows() > 0) : ?>
+                                <?php if (isset($all_applicants) && !is_null($all_applicants)) : ?>
                                     <table class="table table-striped table-bordered">
                                         <thead>
                                         <tr>

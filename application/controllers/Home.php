@@ -23,6 +23,13 @@ class Home extends CI_Controller
         $data['applicant_mother_name'] = $this->lang->line('applicant_mother_name');
         $data['applicant_village_name'] = $this->lang->line('applicant_village_name');
         $data['applicant_post_office_name'] = $this->lang->line('applicant_post_office_name');
+        $data['applicant_gender'] = $this->lang->line('gender');
+        $data['male'] = $this->lang->line('male');
+        $data['female'] = $this->lang->line('female');
+        $data['applicant_type'] = $this->lang->line('applicant_type');
+        $data['farmer'] = $this->lang->line('farmer');
+        $data['entrepreneur'] = $this->lang->line('entrepreneur');
+        $data['farmer_desc'] = $this->lang->line('farmer_desc');
 
         $data['title'] = $this->lang->line('site_title');
         $data['site_address'] = $this->lang->line('site_address');
@@ -75,7 +82,7 @@ class Home extends CI_Controller
         $data['attach_photo'] = $this->lang->line('attach_photo');
         $data['image_size_restrict_text'] = $this->lang->line('image_size_restrict_text');
 
-        $all_courses = $this->app_user_model->get_all_courses(); // Reading and showing the courses list from DB
+        $all_courses = $this->app_user_model->get_all_distinct_courses(); // Reading and showing the courses list from DB
         $data['all_courses'] = $all_courses;
 
         $all_districts = $this->app_user_model->get_all_districts(); // Reading and showing the District list from DB
@@ -113,9 +120,11 @@ class Home extends CI_Controller
         $this->form_validation->set_rules('applicant_name', 'The applicant name', 'trim|required');
         $this->form_validation->set_rules('applicant_father_name', 'Applicant father name', 'trim|required');
         $this->form_validation->set_rules('applicant_date_of_birth', 'Applicant date of birth', 'trim|required');
+        $this->form_validation->set_rules('applicant_gender', 'Applicant Gender', 'trim|required');
         $this->form_validation->set_rules('applicant_NID', 'Applicant NID', 'trim|required');
         $this->form_validation->set_rules('applicant_village', 'Applicant Village', 'trim|required');
         $this->form_validation->set_rules('applicant_post_office', 'Applicant Post Office', 'trim|required');
+        $this->form_validation->set_rules('applicant_type', 'Applicant Type', 'trim|required');
         if ($this->form_validation->run() == FALSE) {
             $file_errors = '';
             $this->session->set_flashdata('file_errors', strip_tags($file_errors));
@@ -167,24 +176,26 @@ class Home extends CI_Controller
             $this->upload->initialize($config);
             if ($this->upload->do_upload('userFile')) {
                 $fileData = $this->upload->data();
-                $data = array(
+               /* $data = array(
                     'applicant_photo' => $fileData['file_name'],
                     'applicant_name' => $this->input->post('applicant_name'),
                     'applicant_father_name' => $this->input->post('applicant_father_name'),
                     'applicant_date_of_birth' => $this->input->post('applicant_date_of_birth'),
+                    'applicant_gender' => $this->input->post('applicant_gender'),
                     'applicant_NID' => $this->input->post('applicant_NID'),
                     'applicant_mobile' => $this->input->post('applicant_mobile'),
                     'applicant_village' => $this->input->post('applicant_village'),
                     'applicant_post_office' => $this->input->post('applicant_post_office'),
                     'applicant_subdistrict_id' => $this->input->post('applicant_subdistrict_id'),
                     'applicant_district_id' => $this->input->post('applicant_district_id'),
-                    'applicant_course_id' => $this->input->post('applicant_course_id'),
+                    'applicant_course_id' => $this->input->post('applicant_subject_id'),
                     'application_date' => date("Y-m-d")
-                );
-                /*$uploadData['applicant_photo'] = $fileData['file_name'];
+                );*/
+                $uploadData['applicant_photo'] = $fileData['file_name'];
                 $uploadData['applicant_name'] = $this->input->post('applicant_name');
                 $uploadData['applicant_father_name'] = $this->input->post('applicant_father_name');
                 $uploadData['applicant_date_of_birth'] = $this->input->post('applicant_date_of_birth');
+                $uploadData['applicant_gender'] = $this->input->post('applicant_gender');
                 $uploadData['applicant_NID'] = $this->input->post('applicant_NID');
                 $uploadData['applicant_mobile'] = $this->input->post('applicant_mobile');
                 $uploadData['applicant_village'] = $this->input->post('applicant_village');
@@ -192,15 +203,17 @@ class Home extends CI_Controller
                 $uploadData['applicant_subdistrict_id'] = $this->input->post('applicant_subdistrict_id');
                 $uploadData['applicant_district_id'] = $this->input->post('applicant_district_id');
                 $uploadData['applicant_course_id'] = $this->input->post('applicant_subject_id');
-                $uploadData['application_date'] = date("Y-m-d");*/
+                $uploadData['applicant_type'] = $this->input->post('applicant_type');
+                $uploadData['farmer_desc'] = ($this->input->post('farmer_desc') != '') ? $this->input->post('farmer_desc') : '';
+                $uploadData['application_date'] = date("Y-m-d");
             } else {
                 $file_errors = $this->upload->display_errors();
                 $this->session->set_flashdata('file_errors', strip_tags($file_errors));
             }
-            var_dump($data);
+            //var_dump($uploadData);
             if ($do_create) {
-                if (!empty($data)) {
-                    $is_created = $this->main_ui_model->add_application($data);
+                if (!empty($uploadData)) {
+                    $is_created = $this->main_ui_model->add_application($uploadData);
                     if ($is_created) {
                         $applicant_name = $this->input->post('applicant_name');
                         $applicant_father_name = $this->input->post('applicant_father_name');
@@ -240,6 +253,13 @@ class Home extends CI_Controller
         $data['applicant_mother_name'] = $this->lang->line('applicant_mother_name');
         $data['applicant_village_name'] = $this->lang->line('applicant_village_name');
         $data['applicant_post_office_name'] = $this->lang->line('applicant_post_office_name');
+        $data['applicant_gender'] = $this->lang->line('gender');
+        $data['male'] = $this->lang->line('male');
+        $data['female'] = $this->lang->line('female');
+        $data['applicant_type'] = $this->lang->line('applicant_type');
+        $data['farmer'] = $this->lang->line('farmer');
+        $data['entrepreneur'] = $this->lang->line('entrepreneur');
+        $data['farmer_desc'] = $this->lang->line('farmer_desc');
 
         $data['title'] = $this->lang->line('site_title');
         $data['site_address'] = $this->lang->line('site_address');
@@ -292,7 +312,7 @@ class Home extends CI_Controller
         $data['attach_photo'] = $this->lang->line('attach_photo');
         $data['image_size_restrict_text'] = $this->lang->line('image_size_restrict_text');
 
-        $all_courses = $this->app_user_model->get_all_courses(); // Reading and showing the courses list from DB
+        $all_courses = $this->app_user_model->get_all_distinct_courses(); // Reading and showing the courses list from DB
         $data['all_courses'] = $all_courses;
 
         $all_districts = $this->app_user_model->get_all_districts(); // Reading and showing the District list from DB
@@ -339,9 +359,12 @@ class Home extends CI_Controller
         $this->form_validation->set_rules('applicant_name', 'The applicant name', 'trim|required');
         $this->form_validation->set_rules('applicant_father_name', 'Applicant father name', 'trim|required');
         $this->form_validation->set_rules('applicant_date_of_birth', 'Applicant date of birth', 'trim|required');
+        $this->form_validation->set_rules('applicant_gender', 'Applicant Gender', 'trim|required');
         $this->form_validation->set_rules('applicant_NID', 'Applicant NID', 'trim|required');
         $this->form_validation->set_rules('applicant_village', 'Applicant Village', 'trim|required');
         $this->form_validation->set_rules('applicant_post_office', 'Applicant Post Office', 'trim|required');
+        $this->form_validation->set_rules('applicant_type', 'Applicant Type', 'trim|required');
+
         if ($this->form_validation->run() == FALSE) {
             $file_errors = '';
             $this->session->set_flashdata('file_errors', strip_tags($file_errors));
@@ -364,6 +387,7 @@ class Home extends CI_Controller
                 'applicant_name' => $this->input->post('applicant_name'),
                 'applicant_father_name' => $this->input->post('applicant_father_name'),
                 'applicant_date_of_birth' => $this->input->post('applicant_date_of_birth'),
+                'applicant_gender' => $this->input->post('applicant_gender'),
                 'applicant_NID' => $this->input->post('applicant_NID'),
                 'applicant_mobile' => $this->input->post('applicant_mobile'),
                 'applicant_village' => $this->input->post('applicant_village'),
@@ -371,8 +395,11 @@ class Home extends CI_Controller
                 'applicant_subdistrict_id' => $this->input->post('applicant_subdistrict_id'),
                 'applicant_district_id' => $this->input->post('applicant_district_id'),
                 'applicant_course_id' => $this->input->post('applicant_subject_id'),
+                'applicant_type' => $this->input->post('applicant_type'),
 //                'applicant_photo' => $this->upload->data('file_name'),
                 'applicant_photo' => ($single_applicant['applicant_photo'] != '') ? $single_applicant['applicant_photo'] : $this->upload->data('file_name'),
+                'farmer_desc' => ($this->input->post('farmer_desc') != '') ? $this->input->post('farmer_desc') : '',
+
                 'application_date' => date("Y-m-d")
             );
 
@@ -423,6 +450,13 @@ class Home extends CI_Controller
         $data['applicant_mother_name'] = $this->lang->line('applicant_mother_name');
         $data['applicant_village_name'] = $this->lang->line('applicant_village_name');
         $data['applicant_post_office_name'] = $this->lang->line('applicant_post_office_name');
+        $data['applicant_gender'] = $this->lang->line('gender');
+        $data['male'] = $this->lang->line('male');
+        $data['female'] = $this->lang->line('female');
+        $data['applicant_type'] = $this->lang->line('applicant_type');
+        $data['farmer'] = $this->lang->line('farmer');
+        $data['entrepreneur'] = $this->lang->line('entrepreneur');
+        $data['farmer_desc'] = $this->lang->line('farmer_desc');
 
         $data['title'] = $this->lang->line('site_title');
         $data['site_address'] = $this->lang->line('site_address');
@@ -522,6 +556,8 @@ h3 { font-size: 15pt; margin-bottom:0; font-family: nikosh; }
         $baseUrl = base_url();
         $applicant_image = $single_applicant['applicant_photo'] ? $single_applicant['applicant_photo'] : 'pdfdimga.png';
         $image_url = $baseUrl.'uploaded/applicants_photo/'.$applicant_image;
+        if($single_applicant['applicant_gender'] == 'Male'){ $applicant_gender = $data['male']; } else{$applicant_gender = $data['female'];}
+        if($single_applicant['applicant_type'] == 'Farmer'){ $applicant_type = $data['farmer']; } else{$applicant_type = $data['entrepreneur'];}
         $html .='<table width="100%">
 	<tr>
 		<td><img src="'.$baseUrl.'images/pdfHeader.png" style="width: 210mm; height: 297mm; margin: 0;" ></td>
@@ -548,6 +584,14 @@ h3 { font-size: 15pt; margin-bottom:0; font-family: nikosh; }
 		<tr>
 			<th><span style="color:#000;"></span>'.$data['applicant_date_of_birth'].'ঃ</th>
 			<td>'.$single_applicant['applicant_date_of_birth'].'</td>
+		</tr>
+		<tr>
+			<th><span style="color:#000;"></span>'.$data['applicant_gender'].'ঃ</th>
+			<td>'.$applicant_gender.'</td>
+		</tr>
+		<tr>
+			<th><span style="color:#000;"></span>'.$data['applicant_type'].'ঃ</th>
+			<td>'.$applicant_type.'</td>
 		</tr>
 		<tr>
 			<th><span style="color:#000;"></span>'.$data['national_id_no'].'ঃ</th>
@@ -704,6 +748,7 @@ h3 { font-size: 15pt; margin-bottom:0; font-family: nikosh; }
         $this->form_validation->set_rules('applicant_name', 'The applicant name', 'trim|required');
         $this->form_validation->set_rules('applicant_father_name', 'Applicant father name', 'trim|required');
         $this->form_validation->set_rules('applicant_date_of_birth', 'Applicant date of birth', 'trim|required');
+        $this->form_validation->set_rules('applicant_gender', 'Applicant Gender', 'trim|required');
         $this->form_validation->set_rules('applicant_NID', 'Applicant NID', 'trim|required');
         $this->form_validation->set_rules('applicant_village', 'Applicant Village', 'trim|required');
         $this->form_validation->set_rules('applicant_post_office', 'Applicant Post Office', 'trim|required');
@@ -719,6 +764,7 @@ h3 { font-size: 15pt; margin-bottom:0; font-family: nikosh; }
                 'applicant_name' => $this->input->post('applicant_name'),
                 'applicant_father_name' => $this->input->post('applicant_father_name'),
                 'applicant_date_of_birth' => $this->input->post('applicant_date_of_birth'),
+                'applicant_gender' => $this->input->post('applicant_gender'),
                 'applicant_NID' => $this->input->post('applicant_NID'),
                 'applicant_mobile' => $this->input->post('applicant_mobile'),
                 'applicant_village' => $this->input->post('applicant_village'),

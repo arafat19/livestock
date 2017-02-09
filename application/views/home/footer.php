@@ -190,6 +190,17 @@
 
 
 </script>-->
-
+<script type="application/javascript">
+    $('document').ready(function(){
+        $("#applicant_type").change(function(){
+            if($(this).val() == 'Farmer') {
+                $("#farmer_desc_field").css('display', 'block');
+            } else {
+                $("#farmer_desc_field").css('display', 'none');
+            }
+            //alert($(this).val());
+        });
+    });
+</script>
 </body>
 </html>

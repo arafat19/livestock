@@ -1,4 +1,4 @@
-<body class="nav-md">
+<body class="nav-md" xmlns="http://www.w3.org/1999/html">
 <!--<script language="JavaScript">
 
     function ValidateFileUpload() {
@@ -134,11 +134,43 @@
                                                 <?php if (isset($all_courses) && $all_courses->num_rows() > 0):
                                                     foreach ($all_courses->result() as $row): ?>
                                                         <option
-                                                            value="<?php echo $row->course_id ?>"><?php echo isset($row->course_venue) ? $row->course_name . " ( $row->course_venue )" : $row->course_name; ?></option>
+                                                            value="<?php echo $row->course_id ?>"><?php echo $row->course_name; ?></option>
                                                         <?php
                                                     endforeach;
                                                 endif; ?>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-6"
+                                               for="applicant_type"><?php echo $applicant_type; ?>
+                                            <span class="required">*</span>
+                                        </label>
+
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select id="applicant_type"
+                                                    name="applicant_type" class="form-control"
+                                                    required autofocus>
+                                                <option
+                                                    value=""><?php echo $applicant_type . ' ' . $form_please_select; ?></option>
+
+                                                <option value="Farmer"><?php echo $farmer; ?></option>
+                                                <option value="Entrepreneur"><?php echo $entrepreneur; ?></option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group" id="farmer_desc_field" style="display:none">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                               for="farmer_desc"><?php echo $farmer_desc; ?> <span
+                                                class="required">*</span>
+                                        </label>
+
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea id="farmer_desc" required
+                                                   name="farmer_desc"
+                                                   placeholder="<?php echo $farmer_desc; ?>"
+                                                   class="form-control col-md-7 col-xs-12"><?php echo $this->input->post('farmer_desc');?></textarea>
                                         </div>
                                     </div>
                                     <div class="item form-group">
@@ -180,6 +212,25 @@
                                                    placeholder="<?php echo $applicant_date_of_birth; ?>"
                                                    type="text" name="applicant_date_of_birth" required/>
 
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-6"
+                                               for="applicant_gender"><?php echo $applicant_gender; ?>
+                                            <span class="required">*</span>
+                                        </label>
+
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select id="applicant_gender"
+                                                    name="applicant_gender" class="form-control"
+                                                    required autofocus>
+                                                <option
+                                                    value=""><?php echo $applicant_gender . ' ' . $form_please_select; ?></option>
+
+                                                        <option value="Male"><?php echo $male; ?></option>
+                                                        <option value="Female"><?php echo $female; ?></option>
+
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="item form-group">

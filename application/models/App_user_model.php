@@ -674,6 +674,10 @@ class app_user_model extends CI_Model
                 $this->db->where('applicant_district_id', $search_query['district_id']);
             if (array_key_exists('sub_district_id', $search_query))
                 $this->db->where('applicant_subdistrict_id', $search_query['sub_district_id']);
+            if (array_key_exists('applicant_gender', $search_query))
+                $this->db->where('applicant_gender', $search_query['applicant_gender']);
+            if (array_key_exists('applicant_NID', $search_query))
+                $this->db->where('applicant_NID', $search_query['applicant_NID']);
             if (array_key_exists('from_date', $search_query) && array_key_exists('to_date', $search_query))
                 $this->db->where('application_date BETWEEN "' . date('Y-m-d', strtotime($search_query['from_date'])) . '" and "' . date('Y-m-d', strtotime($search_query['to_date'])) . '"');
             $this->db->where('applicant_is_trashed', 0);

@@ -101,6 +101,14 @@
                                                                 <td>&nbsp;</td>
                                                             </tr>
                                                             <tr>
+                                                                <td><?php echo $applicant_gender; ?>
+                                                                    :&nbsp;&nbsp;</td>
+                                                                <td><?php if($single_applicant['applicant_gender'] == 'Male'){ $applicant_gender = $male; } else{$applicant_gender = $female;} echo $applicant_gender; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
                                                                 <td><?php echo $national_id_no; ?>:&nbsp;&nbsp;</td>
                                                                 <td><?php echo $single_applicant['applicant_NID']; ?></td>
                                                             </tr>

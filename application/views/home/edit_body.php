@@ -142,6 +142,38 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-6"
+                                               for="applicant_type"><?php echo $applicant_type; ?>
+                                            <span class="required">*</span>
+                                        </label>
+
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select id="applicant_type"
+                                                    name="applicant_type" class="form-control"
+                                                    required autofocus>
+                                                <option
+                                                    value=""><?php echo $applicant_type . ' ' . $form_please_select; ?></option>
+
+                                                <option value="Farmer" <?php if($single_applicant['applicant_type'] == 'Farmer') echo 'selected'; ?>><?php echo $farmer; ?></option>
+                                                <option value="Entrepreneur" <?php if($single_applicant['applicant_type'] == 'Entrepreneur') echo 'selected'; ?>><?php echo $entrepreneur; ?></option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group" id="farmer_desc_field" style="display:none">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                               for="farmer_desc"><?php echo $farmer_desc; ?> <span
+                                                class="required">*</span>
+                                        </label>
+
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <textarea id="farmer_desc" required
+                                                      name="farmer_desc"
+                                                      placeholder="<?php echo $farmer_desc; ?>"
+                                                      class="form-control col-md-7 col-xs-12"><?php echo $single_applicant['farmer_desc'];?></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12"
                                                for="applicant_name"><?php echo $applicant_name; ?> <span
                                                 class="required">*</span>
@@ -180,6 +212,25 @@
                                                    placeholder="<?php echo $applicant_date_of_birth; ?>"
                                                    type="text" name="applicant_date_of_birth" required/>
 
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-6"
+                                               for="applicant_gender"><?php echo $applicant_gender; ?>
+                                            <span class="required">*</span>
+                                        </label>
+
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select id="applicant_gender"
+                                                    name="applicant_gender" class="form-control"
+                                                    required autofocus>
+                                                <option
+                                                    value=""><?php echo $applicant_gender . ' ' . $form_please_select; ?></option>
+
+                                                <option value="Male" <?php if($single_applicant['applicant_gender'] == 'Male') echo 'selected'; ?>><?php echo $male; ?></option>
+                                                <option value="Female" <?php if($single_applicant['applicant_gender'] == 'Female') echo 'selected'; ?>><?php echo $female; ?></option>
+
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="item form-group">
