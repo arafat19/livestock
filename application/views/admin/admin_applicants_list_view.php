@@ -416,6 +416,7 @@
                                             <th>Applicant Village</th>
                                             <th>Course Name</th>
                                             <th>Applicant Photo</th>
+                                            <th>Applicant NID</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
@@ -445,6 +446,11 @@
                                                         <img class="img-thumb" height="45px" width="45px"
                                                             src="<?php echo base_url(); ?>uploaded/applicants_photo/<?php echo $row->applicant_photo ? $row->applicant_photo : 'blank_person.png'; ?>"
                                                             alt="<?php echo $row->applicant_photo; ?>"/>
+                                                    </td>
+                                                    <td align="center">
+                                                        <img class="img-thumb" height="45px" width="45px"
+                                                            src="<?php echo base_url(); ?>uploaded/applicants_photo/<?php echo $row->applicant_NID_image ? $row->applicant_NID_image : 'blank_person.png'; ?>"
+                                                            alt="<?php echo $row->applicant_NID_image; ?>"/>
                                                     </td>
                                                     <td align="center">
                                                         <?php

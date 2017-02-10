@@ -248,6 +248,24 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-6"
+                                               for="userfileN"><?php echo $national_id_scan; ?><br/>
+
+                                        </label>
+
+                                        <div class=<?php if ($single_applicant['applicant_NID_image']) echo "col-md-3 col-sm-3"; else echo "col-md-6 col-sm-6";?> col-xs-12">
+                                            <input name="userFileN" type="file" title="National ID Scan Image"
+                                                   class="form-control col-md-7 col-xs-12"/>
+                                        </div>
+                                        <?php if ($single_applicant['applicant_NID_image']) { ?>
+                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                <img class="img-thumb" height="142px" width="114px"
+                                                     src="<?php echo base_url(); ?>uploaded/applicants_photo/<?php echo $single_applicant['applicant_NID_image']; ?>"
+                                                     alt="<?php echo $single_applicant['applicant_NID_image']; ?>"/>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                    <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12"
                                                for="applicant_mobile"><?php echo $mobile_number; ?>
                                             <span class="required">*</span>

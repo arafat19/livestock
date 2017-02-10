@@ -402,7 +402,7 @@ class Home extends CI_Controller
                 'applicant_district_id' => $this->input->post('applicant_district_id'),
                 'applicant_course_id' => $this->input->post('applicant_subject_id'),
                 'applicant_type' => $this->input->post('applicant_type'),
-                'applicant_NID_image' => ($single_applicant['applicant_NID_image'] != '') ? $single_applicant['applicant_NID_image'] : $fileDataN['file_name'],
+                'applicant_NID_image' => ($fileDataN['file_name'] != '') ? $fileDataN['file_name'] : $single_applicant['applicant_NID_image'],
                 'applicant_photo' => ($single_applicant['applicant_photo'] != '') ? $single_applicant['applicant_photo'] : $this->upload->data('file_name'),
                 'farmer_desc' => ($this->input->post('farmer_desc') != '') ? $this->input->post('farmer_desc') : '',
                 'application_date' => date("Y-m-d")
