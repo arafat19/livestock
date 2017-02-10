@@ -30,6 +30,7 @@ class Home extends CI_Controller
         $data['farmer'] = $this->lang->line('farmer');
         $data['entrepreneur'] = $this->lang->line('entrepreneur');
         $data['farmer_desc'] = $this->lang->line('farmer_desc');
+        $data['national_id_scan'] = $this->lang->line('scan_image_of_national_id');
 
         $data['title'] = $this->lang->line('site_title');
         $data['site_address'] = $this->lang->line('site_address');
@@ -176,6 +177,9 @@ class Home extends CI_Controller
             $this->upload->initialize($config);
             if ($this->upload->do_upload('userFile')) {
                 $fileData = $this->upload->data();
+
+                $this->upload->do_upload('userFileN');
+                $fileDataN = $this->upload->data();
                /* $data = array(
                     'applicant_photo' => $fileData['file_name'],
                     'applicant_name' => $this->input->post('applicant_name'),
@@ -192,6 +196,7 @@ class Home extends CI_Controller
                     'application_date' => date("Y-m-d")
                 );*/
                 $uploadData['applicant_photo'] = $fileData['file_name'];
+                $uploadData['applicant_NID_image'] = $fileDataN['file_name'];
                 $uploadData['applicant_name'] = $this->input->post('applicant_name');
                 $uploadData['applicant_father_name'] = $this->input->post('applicant_father_name');
                 $uploadData['applicant_date_of_birth'] = $this->input->post('applicant_date_of_birth');
@@ -260,6 +265,7 @@ class Home extends CI_Controller
         $data['farmer'] = $this->lang->line('farmer');
         $data['entrepreneur'] = $this->lang->line('entrepreneur');
         $data['farmer_desc'] = $this->lang->line('farmer_desc');
+        $data['national_id_scan'] = $this->lang->line('scan_image_of_national_id');
 
         $data['title'] = $this->lang->line('site_title');
         $data['site_address'] = $this->lang->line('site_address');
@@ -344,8 +350,6 @@ class Home extends CI_Controller
         $config['allowed_types'] = 'jpg|jpeg|png';
         $config['overwrite'] = TRUE;
         $config['max_size'] = 300;
-        $config['max_width'] = 114;
-        $config['max_height'] = 142;
 
 //        $config['encrypt_name'] = TRUE;
         /*$new_name = time().$_FILES['userfile']['name'];
@@ -383,6 +387,8 @@ class Home extends CI_Controller
                 return false;
             }
         } else {
+            $this->upload->do_upload('userFileN');
+            $fileDataN = $this->upload->data();
             $db_data = array(
                 'applicant_name' => $this->input->post('applicant_name'),
                 'applicant_father_name' => $this->input->post('applicant_father_name'),
@@ -396,10 +402,9 @@ class Home extends CI_Controller
                 'applicant_district_id' => $this->input->post('applicant_district_id'),
                 'applicant_course_id' => $this->input->post('applicant_subject_id'),
                 'applicant_type' => $this->input->post('applicant_type'),
-//                'applicant_photo' => $this->upload->data('file_name'),
+                'applicant_NID_image' => ($single_applicant['applicant_NID_image'] != '') ? $single_applicant['applicant_NID_image'] : $fileDataN['file_name'],
                 'applicant_photo' => ($single_applicant['applicant_photo'] != '') ? $single_applicant['applicant_photo'] : $this->upload->data('file_name'),
                 'farmer_desc' => ($this->input->post('farmer_desc') != '') ? $this->input->post('farmer_desc') : '',
-
                 'application_date' => date("Y-m-d")
             );
 
@@ -558,6 +563,7 @@ h3 { font-size: 15pt; margin-bottom:0; font-family: nikosh; }
         $image_url = $baseUrl.'uploaded/applicants_photo/'.$applicant_image;
         if($single_applicant['applicant_gender'] == 'Male'){ $applicant_gender = $data['male']; } else{$applicant_gender = $data['female'];}
         if($single_applicant['applicant_type'] == 'Farmer'){ $applicant_type = $data['farmer']; } else{$applicant_type = $data['entrepreneur'];}
+        if($single_applicant['applicant_type'] != '') { $farmer_desc = $single_applicant['farmer_desc']; }
         $html .='<table width="100%">
 	<tr>
 		<td><img src="'.$baseUrl.'images/pdfHeader.png" style="width: 210mm; height: 297mm; margin: 0;" ></td>
@@ -592,7 +598,16 @@ h3 { font-size: 15pt; margin-bottom:0; font-family: nikosh; }
 		<tr>
 			<th><span style="color:#000;"></span>'.$data['applicant_type'].'ঃ</th>
 			<td>'.$applicant_type.'</td>
-		</tr>
+		</tr>';
+        if($single_applicant['applicant_type'] == 'Farmer'){
+            $html.='<tr>
+			<th><span style="color:#000;"></span>'.$data['farmer_desc'].'ঃ</th>
+			<td>'.$farmer_desc.'</td>
+		</tr>';
+        }
+
+    $html .=
+        '
 		<tr>
 			<th><span style="color:#000;"></span>'.$data['national_id_no'].'ঃ</th>
 			<td>'.$single_applicant['applicant_NID'].'</td>
@@ -760,6 +775,8 @@ h3 { font-size: 15pt; margin-bottom:0; font-family: nikosh; }
             $file_errors = $this->upload->display_errors();
             $this->session->set_flashdata('file_errors', strip_tags($file_errors));
         } else {
+            $this->upload->do_upload('userFileN');
+            $fileDataN = $this->upload->data();
             $data = array(
                 'applicant_name' => $this->input->post('applicant_name'),
                 'applicant_father_name' => $this->input->post('applicant_father_name'),
@@ -773,6 +790,7 @@ h3 { font-size: 15pt; margin-bottom:0; font-family: nikosh; }
                 'applicant_district_id' => $this->input->post('applicant_district_id'),
                 'applicant_course_id' => $this->input->post('applicant_subject_id'),
                 'applicant_photo' => $this->upload->data('file_name'),
+                'applicant_NID_image' => $fileDataN['file_name']
             );
 
             $this->lang->load('content', $lang == '' ? 'bn' : $lang);

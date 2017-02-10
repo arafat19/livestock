@@ -247,6 +247,8 @@
                                             <a type="button" href="<?php echo base_url() ?>admin/show/applicants" class="btn btn-danger">Reset</a>
                                             <button type="submit" class="btn btn-success">Search</button>
                                             <button type="submit" class="btn btn-info" name="print_list" formtarget="_blank">Print List</button>
+                                            <a id="report_app_list" class="btn btn-warning" name="report_app_list" formtarget="_blank">Report for Applicant List</a>
+                                            <a id="report_app_details" class="btn btn-dark" name="report_app_list" formtarget="_blank">Report For Applicant Details</a>
                                         </div>
                                     </div>
                                 </form>

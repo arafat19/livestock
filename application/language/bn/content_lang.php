@@ -29,6 +29,7 @@ $lang['male'] = 'পুরুষ';
 $lang['female'] = 'মহিলা';
 $lang['rules_of_application_submission'] = 'আবেদন দাখিলের নিয়মাবলি';
 $lang['national_id_no'] = 'জাতীয় পরিচয়পত্র নম্বর';
+$lang['scan_image_of_national_id'] = 'জাতীয় পরিচয়পত্রের স্ক্যান কপি সংযুক্ত করুন';
 $lang['application_for_training'] = 'প্রশিক্ষণের জন্য আবেদনপত্র';
 $lang['to'] = 'বরাবর';
 $lang['department_head'] = 'বিভাগীয় প্রধান';

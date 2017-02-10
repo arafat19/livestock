@@ -248,6 +248,17 @@
                                         </div>
                                     </div>
                                     <div class="item form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-6"
+                                               for="userfileN"><?php echo $national_id_scan; ?><br/>
+
+                                        </label>
+
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <input name="userFileN" type="file" title="National ID Scan Image"
+                                                   class="form-control col-md-7 col-xs-12"/>
+                                        </div>
+                                    </div>
+                                    <div class="item form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12"
                                                for="applicant_mobile"><?php echo $mobile_number; ?>
                                             <span class="required">*</span>

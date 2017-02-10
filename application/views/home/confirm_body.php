@@ -78,6 +78,24 @@
                                                                 <td>&nbsp;</td>
                                                             </tr>
                                                             <tr>
+                                                                <td><?php echo $applicant_type; ?>
+                                                                    : </td>
+                                                                <td><?php echo $single_applicant['applicant_type'] == 'Farmer' ? $farmer: $entrepreneur; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <?php if($single_applicant['applicant_type'] == 'Farmer') {?>
+                                                            <tr>
+                                                                <td><?php echo $farmer_desc; ?>
+                                                                    : </td>
+                                                                <td><?php echo $single_applicant['farmer_desc']; ?></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>&nbsp;</td>
+                                                            </tr>
+                                                            <?php } ?>
+                                                            <tr>
                                                                 <td><?php echo $applicant_name; ?>:&nbsp;&nbsp;</td>
                                                                 <td><?php echo $single_applicant['applicant_name']; ?></td>
                                                             </tr>

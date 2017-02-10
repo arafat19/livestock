@@ -222,13 +222,25 @@ class Report extends CI_Controller
 							<td>'.$applicant_name[$i][0]->applicant_date_of_birth.'</td>
 						</tr>
 						<tr>
-							<th><span style="color:#F00;"></span> জাতীয় পরিচয়পত্রের নাম্বারঃ</th>
-							<td>'.$applicant_name[$i][0]->applicant_NID.'</td>
-						</tr>
-						<tr>
 							<th><span style="color:#F00;"></span> জেন্ডারঃ</th>
 							<td>'.$applicant_name[$i][0]->applicant_gender.'</td>
 						</tr>
+						<tr>
+							<th><span style="color:#F00;"></span> আবেদনকারীর ধরণঃ</th>
+							<td>'.$applicant_name[$i][0]->applicant_type.'</td>
+						</tr>';
+                        if($applicant_name[$i][0]->applicant_type == 'Farmer'){
+                            $html.='<tr>
+                                        <th><span style="color:#F00;"></span>বর্ণনাঃ</th>
+                                        <td>'.$applicant_name[$i][0]->farmer_desc.'</td>
+                                    </tr>';
+                        }
+                        $html.='
+						<tr>
+							<th><span style="color:#F00;"></span> জাতীয় পরিচয়পত্রের নাম্বারঃ</th>
+							<td>'.$applicant_name[$i][0]->applicant_NID.'</td>
+						</tr>
+						
 						<tr>
 							<th><span style="color:#F00;"></span> মোবাইল নাম্বারঃ</th>
 							<td>'.$applicant_name[$i][0]->applicant_mobile.'</td>

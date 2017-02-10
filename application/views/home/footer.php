@@ -200,6 +200,16 @@
             }
             //alert($(this).val());
         });
+
+        $("#applicant_type_edit").change(function(){
+            if($(this).val() == 'Farmer') {
+                $("#farmer_desc_field_edit").css('display', 'block');
+            } else {
+                $("#farmer_desc_field_edit").css('display', 'none');
+            }
+            //alert($(this).val());
+        });
+
     });
 </script>
 </body>

@@ -148,7 +148,7 @@
                                         </label>
 
                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select id="applicant_type"
+                                            <select id="applicant_type_edit"
                                                     name="applicant_type" class="form-control"
                                                     required autofocus>
                                                 <option
@@ -160,7 +160,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="item form-group" id="farmer_desc_field" style="display:none">
+                                    <div class="item form-group" id="farmer_desc_field_edit" <?php if($single_applicant['applicant_type'] == 'Farmer') { ?> style="display:block" <?php } else { ?> style="display: none;" <?php } ?>>
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12"
                                                for="farmer_desc"><?php echo $farmer_desc; ?> <span
                                                 class="required">*</span>
